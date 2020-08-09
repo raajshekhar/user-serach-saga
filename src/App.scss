@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+  .position-relative {
+    position: relative;
+  }
+  .app-auto-complete {
+    display: grid;
+    place-items: center;
+    margin-top: 20px;
+    font-size: 16px;
+    .custom-search-field {
+      width: 40vw;
+      display: grid;
+      place-items: centre;
+    }
+    .filter-results-section {
+      width: 93vw;
+      text-align: right;
+      .reset-button-section {
+        margin-bottom: 10px;
+        button {
+          padding: 5px 10px;
+        }
+       }
+    }
+  }
+  .app-list {
+    width: 95vw;
+    max-height: 75vh;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+}

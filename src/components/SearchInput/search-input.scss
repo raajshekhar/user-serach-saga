@@ -1,0 +1,13 @@
+.search-input-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .custom-checkbox-field {
+        
+        min-width: 100px;
+        justify-content: space-evenly;
+        .position-relative {
+            display: flex;
+        }
+    }
+}
