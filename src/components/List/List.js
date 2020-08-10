@@ -10,7 +10,7 @@ const List = (props) => {
     const openModal = (e) => e.target.tagName === "BUTTON" && onSelectedItem(e.target.id);
 
     return (
-        <section className="list-section" onClick={openModal}>
+        <section data-testid="list-section" className="list-section" onClick={openModal}>
             { list.map(item => <ListItem key={item.id} {...item} /> )}
         </section>
     );

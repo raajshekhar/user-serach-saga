@@ -28,7 +28,7 @@ const InputField = (props) => {
         <div className={`custom-input-validation custom-${type}-field`}>
           {(labelName && type !== 'checkbox') && <InputFieldLabel {...labelData} /> }
           <div className={`position-relative ${icon ? 'has-icon': ''}`}>
-              <input {...inputFields} spellcheck="false"  onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, onEnter)}}  />
+              <input {...inputFields} spellCheck="false"  onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, onEnter)}}  />
               {(type==='checkbox') && <InputFieldLabel {...labelData} />}
               { ( type === 'search' ) ? <div onClick={onListselect} className={`search-result ${suggestions.length ? '' : 'd-none'}`}>{suggestions.length ? <SearchResultsComponent list={suggestions} /> : null}</div> : null}
               {showIcon}
@@ -54,7 +54,7 @@ InputField.propTypes = {
     id: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     type: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.any,
     readOnly: PropTypes.bool,
     rows: PropTypes.string,
     cols: PropTypes.string,

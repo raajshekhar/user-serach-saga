@@ -1,24 +1,27 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, fireEvent } from '@testing-library/react';
 import ListItem from './ListItem';
 
-Enzyme.configure({ adapter: new Adapter() })
 
-describe('ListItem Component', () => {
+describe('<ListItem />', () => {
 
-    it('It should render without error', () => {
-        const message = shallow(<ListItem />);
-        const wrapper = message.find('.list-user-edit');
-        expect(wrapper.length).toBe(1);
-    })
+    it('Renders successfully without error', () => {
+      const listItemComponent = render(
+          <ListItem {...{ id: 1, title: 'Title', body: 'Body' }} />
+      );
+      expect(listItemComponent.container).toBeTruthy();
+    });
 
-    it('It should render a message and icon', () => {
-        const data = { id: 1, title: 'Works fine', body: 'success' }
-        const wrapper = mount(<ListItem {...data} />);
-        expect(wrapper.props().title).toEqual('Works fine');
-        expect(wrapper.props().body).toEqual('success');
-        expect(wrapper.props().id).toEqual(1);
-    })
+    it('Shows List Item and shows Edit form', () => {
+        const { getByRole, getByTestId } = render(
+            <ListItem {...{ id: 1, title: 'Title', body: 'Body' }} />
+        );
 
-})
+        const editButton = getByRole('button', { name: /edit/i });
+        fireEvent.click(editButton);
+
+        const listItem = getByTestId('list-item-wrapper');
+        expect(listItem.children.length).toBe(2); 
+      });
+
+});

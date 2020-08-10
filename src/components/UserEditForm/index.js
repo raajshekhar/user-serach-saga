@@ -21,7 +21,7 @@ const UserSearchEditForm = (props) => {
     }
 
     return (
-        <section id="user-seach-edit-form" ref={formElement}>
+        <section data-testid='user-seach-edit-form' id="user-seach-edit-form" ref={formElement}>
             <Formik initialValues={{...initialValues}} validationSchema={validationSchema}>
             {(props) => {
                 const { handleSubmit } = {...props};

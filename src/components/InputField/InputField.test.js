@@ -1,22 +1,49 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import { render, fireEvent } from '@testing-library/react';
 import InputField from './index';
-import Adapter from 'enzyme-adapter-react-16';
- 
-Enzyme.configure({ adapter: new Adapter() })
- 
-describe('Form Testing', () => {
 
-    it('It should render the elements when type is search', () => {
-        const data = { type: 'search', id: 'usersearch', value: 'one', id: 'one', readOnly: true, className: 'usersearch' }
-        const wrapper = mount(<InputField {...data} />);
+describe('<InputField />', () => {
 
-        const customElement = wrapper.find('.custom-input-validation');
-        const positionElement = wrapper.find('.position-relative');
-        const dynamicInputElement = wrapper.find('.search-result');
+    it('Renders successfully without error', () => {
+        const InputFieldComponent = render(<InputField {...fieldData} />);
+        expect(InputFieldComponent.container).toBeTruthy();
+        expect(InputFieldComponent.queryByPlaceholderText('search here')).toBeTruthy();
+      });
 
-        expect(customElement.length).toBe(1);
-        expect(positionElement.length).toBe(1);
-        expect(dynamicInputElement.length).toBe(1);
+    it('Input Change', () => {
+        const { queryByPlaceholderText } = render(<InputField {...fieldData} />);
+        const searchInput = queryByPlaceholderText('search here');
+        fireEvent.change(searchInput, { target: {value:'Autocomplete'}})
+        expect(searchInput.value).toMatch('Autocomplete');
     })
+
 })
+
+
+const fieldData = {
+    "name": "title",
+    "id": "title",
+    "type": "search",
+    "placeholder": "search here",
+    "onChange": () => {},
+    "maxLength": "150",
+    "value": "Autocomplete",
+    "readOnly": false,
+    "colLength": "col-md-6 col-sm-12 col-xs-12",
+    "labelName": "Title",
+    "restrictions": ["numbers", "left-space", "special-characters"],
+    "popOverPlacement": ["bottom", "bottom"],
+    "autoComplete": "off",
+    "labelImp": true,
+    "autoFocus": true,
+    "validations": [
+        {
+            "type": "min",
+            "params": [3, "Title cannot be less than 3 characters"]
+        },
+        {
+          "type": "required",
+          "params": ["Please Enter Title"]
+        }
+      ]
+}

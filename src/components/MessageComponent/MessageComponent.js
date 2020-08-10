@@ -5,7 +5,7 @@ import './message-component.scss';
 const MessageComponent = (props) => {
     const { message, icon } = props;
     return (
-        <section id="error-section">
+        <section data-testid="message-wrapper" id="error-section">
             <article>
                 <i className= "material-icons">{icon}</i>
                 <h5>{message}</h5>
