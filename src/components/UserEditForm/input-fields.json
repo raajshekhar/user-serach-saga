@@ -13,6 +13,7 @@
         "popOverPlacement": ["bottom", "bottom"],
         "autoComplete": "off",
         "labelImp": true,
+        "autofocus": true,
         "validations": [
             {
                 "type": "min",

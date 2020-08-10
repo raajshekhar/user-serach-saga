@@ -23,6 +23,8 @@ const InputField = (props) => {
     let suggestions = props.suggestions || [];
     if(value) suggestions = ( type === 'search' && suggestions.length ) ? suggestions : [{ title: 'No Data Found!', id: 'No Data Found!'}];
 
+    const onEnter = (e) => e.key === 'Enter' && props.onEnter(e);
+
     useEffect(() => {
       if(type === 'search') {
         const searchResults = document.querySelector(`.custom-${type}-field .search-result`);
@@ -37,9 +39,9 @@ const InputField = (props) => {
         <div className={`custom-input-validation custom-${type}-field`}>
           {(labelName && type !== 'checkbox') && <InputFieldLabel {...labelData} /> }
           <div className={`position-relative ${icon ? 'has-icon': ''}`}>
-              <input {...inputFields} onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, () => {})}}  />
+              <input {...inputFields} onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, onEnter)}}  />
               {(type==='checkbox') && <InputFieldLabel {...labelData} />}
-              <div className={`search-result ${suggestions.length ? '' : 'd-none'}`}>{suggestions.length ? <SearchResultsComponent list={suggestions} /> : null}</div>
+              { ( type === 'search' ) ? <div className={`search-result ${suggestions.length ? '' : 'd-none'}`}>{suggestions.length ? <SearchResultsComponent list={suggestions} /> : null}</div> : null}
               {showIcon}
               { icon ? dynamicIcon({icon, id}) : null }
           </div>
@@ -75,12 +77,14 @@ InputField.propTypes = {
     maxLength: PropTypes.string,
     defaultChecked: PropTypes.bool,
     icon: PropTypes.oneOf([PropTypes.string, PropTypes.any]),
-    suggestions: PropTypes.array
+    suggestions: PropTypes.array,
+    onEnter: PropTypes.func
 }
 
 InputField.defaultProps = {
-  onClick: (e) => {},
-  onListselect: (e) => {}
+  onClick: () => {},
+  onListselect: () => {},
+  onEnter: () => {}
 }
 
 InputField.displayName = 'Input Field';

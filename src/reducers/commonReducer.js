@@ -1,6 +1,7 @@
 import { SET_EDIT_FORM_INDEX, RESET_EDIT_FORM_INDEX, UPDATE_USER_DATA, FILTER_FROM_LIST, MAIN_FILTER_FROM_LIST, RESET_FILTER_FROM_LIST,
     RESET_MAIN_FILTER_FROM_LIST } from '../actions';
 import { RECEIVE_SUCCESS_API_RESPONSE, RECEIVE_FAILURE_API_RESPONSE, IS_LOADING } from '../actions/getuserlist';
+import { UPDATE_UI_LIST } from '../actions/usersearch';
 
 const initialState = {
     isLoading: false,
@@ -48,6 +49,10 @@ const commonReducer = (state = initialState, action) => {
         
         case RECEIVE_FAILURE_API_RESPONSE:
             return { ...state, showUIList: [], list: [], getUserListError: action.data.message, isLoading: false }
+
+        case UPDATE_UI_LIST:
+            const listData = {...state}['list'].filter(data => data.title.toLocaleLowerCase().includes(action.data.data.toLocaleLowerCase()));
+            return { ...state, filterList: [], showUIList: listData }
 
         case IS_LOADING:
             return { ...state, isLoading: action.data }

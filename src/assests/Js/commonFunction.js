@@ -39,6 +39,6 @@ export const customOnKeyPress = (e, restrictions, onKeyPress) => {
     const allowNumeric = (restrictions.includes('alpha') && restrictions.includes('special-characters')) && !ENUM.PATTERN.NUMBERS_ONLY.test(text)
     if (allowNumeric) return e.preventDefault();
     /* Allow Numbers Only */
-  
+
     onKeyPress(e);
   };

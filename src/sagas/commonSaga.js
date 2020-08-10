@@ -1,12 +1,9 @@
 import { put, takeLatest, call, takeEvery } from 'redux-saga/effects'
 import { filterFromList, resetFilterList, setEditFormIndex, resetEditFormIndex, updateUserData, requestFilterListForMainList,
     resetFilterListForMainList } from '../actions'
- import { REQUEST_FILTER_FROM_LIST, REQUEST_RESET_FILTER_FROM_LIST,REQUEST_TO_UPDATE_USER_DATA, REQUEST_SET_EDIT_FORM_INDEX,
+import { SET_EDIT_FORM_INDEX, REQUEST_FILTER_FROM_LIST, REQUEST_RESET_FILTER_FROM_LIST,REQUEST_TO_UPDATE_USER_DATA,
     REQUEST_RESET_EDIT_FORM_INDEX, REQUEST_MAIN_FILTER_FROM_LIST, REQUEST_RESET_MAIN_FILTER_FROM_LIST } from '../actions'
-
-function* editSelectedUserInfo(action){
-    yield put(setEditFormIndex(action))
-}
+import { UPDATE_UI_LIST, REQUEST_UPDATE_UI_LIST } from '../actions/usersearch';
 
 function* resetSelectedUserInfo(){
     yield put(resetEditFormIndex())
@@ -33,8 +30,12 @@ function* requestResetForMainList(data){
     yield put(resetFilterListForMainList(data));
 }
 
+function* updateUiListReducer(data) {
+    yield put({ type: UPDATE_UI_LIST, data })
+}
+
 export function* commonSaga(){
-    yield takeLatest(REQUEST_SET_EDIT_FORM_INDEX, editSelectedUserInfo);
+    yield takeLatest(SET_EDIT_FORM_INDEX, setEditFormIndex);
     yield takeLatest(REQUEST_RESET_EDIT_FORM_INDEX, resetSelectedUserInfo);
     yield takeEvery(REQUEST_TO_UPDATE_USER_DATA, updateUserDataInfo);
     yield takeLatest(REQUEST_FILTER_FROM_LIST, searchFromList);
@@ -42,4 +43,6 @@ export function* commonSaga(){
 
     yield takeLatest(REQUEST_MAIN_FILTER_FROM_LIST, requestSearchForMainList);
     yield takeLatest(REQUEST_RESET_MAIN_FILTER_FROM_LIST, requestResetForMainList);
+
+    yield takeLatest(REQUEST_UPDATE_UI_LIST, updateUiListReducer)
 }

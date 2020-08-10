@@ -12,7 +12,7 @@ const fetchApi = async () => {
     }
 }
 
-export function* fetchUserList(){
+export function* fetchUserList() {
     try {
         yield put(updateLoader(true));
         const data = yield call(fetchApi);

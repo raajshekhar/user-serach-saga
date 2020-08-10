@@ -6,19 +6,21 @@ import Modal from './components/Modal/Modal';
 import UserEditForm from './components/UserEditForm'
 import List from './components/List/List';
 import { fetchApiRequest } from './actions/getuserlist';
-import { requestResetEditFormIndex, requestSetEditFormIndex, requestToUpdateUserData, requestFilterFromList, filterListForMainList, resetFilterList , resetFilterListForMainList} from './actions'
+import { requestResetEditFormIndex, setEditFormIndex, requestToUpdateUserData, requestFilterFromList, filterListForMainList, resetFilterList , resetFilterListForMainList} from './actions'
 import { getSelectedIndexData, getFilterList, getUIList, getUserError, getLoaderStatus } from './reducers/commonReducer'
 import MessageComponent from './components/MessageComponent/MessageComponent';
 import './App.scss';
 
 function App(props) {
 
-  const { getLoaderStatus, getUserError, selectedIndexData, getFilterList, requestFilterFromList, filterListForMainList, resetFilterList, getUIList, resetFilterListForMainList } = props;
+  const { getLoaderStatus, getUserError, selectedIndexData, getFilterList, requestFilterFromList,
+     filterListForMainList, resetFilterList, getUIList, resetFilterListForMainList } = props;
+  
   const { fetchApiRequest } = props;
 
   useEffect(() => { fetchApiRequest() }, [])
 
-  const onClickHandler = useCallback((id) => props.requestSetEditFormIndex(id), [])
+  const onClickHandler = useCallback((id) => props.setEditFormIndex({ index: id}), [])
 
   const closeModal = useCallback(() => props.requestResetEditFormIndex(), [])
 
@@ -58,6 +60,16 @@ const mapStateToProps = (state) => {
   })
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({filterListForMainList, fetchApiRequest, resetFilterListForMainList, requestResetEditFormIndex, filterListForMainList, requestSetEditFormIndex, resetFilterList, requestToUpdateUserData, requestFilterFromList }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+    filterListForMainList,
+    fetchApiRequest,
+    resetFilterListForMainList,
+    requestResetEditFormIndex,
+    filterListForMainList,
+    setEditFormIndex,
+    resetFilterList,
+    requestToUpdateUserData,
+    requestFilterFromList
+  }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
