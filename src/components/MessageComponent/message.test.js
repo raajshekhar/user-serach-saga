@@ -10,9 +10,9 @@ describe('<MessageComponent />', () => {
       });
 
     it('It should render the message section without error', () => {
-        const { getByTestId } = render(<MessageComponent />);
-        const wrapper = getByTestId('message-wrapper');
-        expect(wrapper.children.length).toBe(1);
+        const { getByRole } = render(<MessageComponent message="Hello!"  />);
+        const wrapper = getByRole('article');
+        expect(wrapper.children.length).toBe(2);
     })
 
 

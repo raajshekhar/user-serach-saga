@@ -14,10 +14,10 @@ describe('<List />', () => {
     });
 
     it('Shows List Item and shows Edit form', () => {
-        const { getByTestId } = render(
+        const { getByText } = render(
             <List {...{list}} />
         );
-        const listItem = getByTestId('list-section');
+        const listItem = getByText('Title');
         expect(listItem.children.length).toBe(1); 
 
       });

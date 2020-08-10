@@ -10,19 +10,17 @@ describe('<List />', () => {
       });
 
     it('It should render the modal section without error', () => {
-        const { getByTestId } = render(<Modal />);
-        const wrapper = getByTestId('modal-section');
-        expect(wrapper.children.length).toBe(1);
+        const { getByRole } = render(<Modal />);
+        const wrapper = getByRole('article');
+        expect(wrapper.children.length).toBe(2);
     })
 
     it('It show render the modal element with passing props', () => {
 
         const data = { title: 'Modal Component', children: <div className="test-modal">Modal children</div>, onClick: () => {} }
-        const { getByTestId, getByText } = render(
+        const { getByText } = render(
             <Modal {...data} />
         );
-        const wrapper = getByTestId('modal-children-section');
-        expect(wrapper.children.length).toBe(1);
 
         const childElementString = getByText(/Modal Component/i);
         expect(childElementString.textContent).toMatch('Modal Component');

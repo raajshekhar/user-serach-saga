@@ -12,9 +12,18 @@ describe('<UserEditForm />', () => {
 
     it('It should render the messafe section without error', () => {
         const data = { data: 1, onClick: () => {} }
-        const { getByTestId } = render(<UserEditForm {...data} />);
-        const wrapper = getByTestId('user-seach-edit-form');
-        expect(wrapper.children.length).toBe(1);
+        const { getAllByRole } = render(<UserEditForm {...data} />);
+        const editButton = getAllByRole('button');
+        expect(editButton.length).toBe(1);
     })
+
+    it('It show render the modal element with passing props', () => {
+
+        const data = { data: 1, onClick: () => {} }
+        const { queryAllByText } = render(<UserEditForm {...data} />);
+
+        const childElementString = queryAllByText('Title');
+        expect(childElementString.length).toBe(1);
+      });
 
 })

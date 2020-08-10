@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ListItem = ({id, title, body}) => (
-            <article data-testid="list-item-wrapper">
+            <article>
                 <div className="list-user-details">
                     <div className="list-user-id">
                         {id}
