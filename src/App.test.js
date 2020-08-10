@@ -16,7 +16,7 @@ sagaMiddleware.run(rootSaga);
 
 describe('<App />', () => {
 
-    it('Renders successfully without error', () => {
+    it('Renders App successfully without error', () => {
         const listItemComponent = render(<Provider store={store}><App /></Provider>);
         expect(listItemComponent.container).toBeTruthy();
     });

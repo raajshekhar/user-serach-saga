@@ -16,7 +16,7 @@ describe('<MessageComponent />', () => {
     })
 
 
-    it('It should render the message section without error', () => {
+    it('It should the message  text without error', () => {
         const { getByRole } = render(<MessageComponent message="Hello!" />);
         expect(getByRole('show-message')).toHaveTextContent('Hello!')
     })

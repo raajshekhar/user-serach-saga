@@ -20,7 +20,7 @@ describe('<SearchInput />', () => {
         expect(SearchInputComponent.container).toBeTruthy();
     });
 
-    it('Renders successfully without error', () => {
+    it('It should find the text', () => {
         const { getByText } = render(<Provider store={store}><SearchInput /></Provider>);
         const childElementString = getByText(/Search/i);
         expect(childElementString.textContent).toMatch('Search');

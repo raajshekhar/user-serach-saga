@@ -10,7 +10,7 @@ describe('<UserEditForm />', () => {
         expect(UserEditFormComponent.container).toBeTruthy();
       });
 
-    it('It should render the messafe section without error', () => {
+    it('It should render the message section without error', () => {
         const data = { data: 1, onClick: () => {} }
         const { getAllByRole } = render(<UserEditForm {...data} />);
         const editButton = getAllByRole('button');

@@ -15,7 +15,7 @@ describe('<List />', () => {
         expect(wrapper.children.length).toBe(2);
     })
 
-    it('It show render the modal element with passing props', () => {
+    it('It shows render the modal element with passing props', () => {
 
         const data = { title: 'Modal Component', children: <div className="test-modal">Modal children</div>, onClick: () => {} }
         const { getByText } = render(
