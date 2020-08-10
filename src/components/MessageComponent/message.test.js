@@ -15,4 +15,10 @@ describe('<MessageComponent />', () => {
         expect(wrapper.children.length).toBe(1);
     })
 
+
+    it('It should render the message section without error', () => {
+        const { getByRole } = render(<MessageComponent message="Hello!" />);
+        expect(getByRole('show-message')).toHaveTextContent('Hello!')
+    })
+
 })

@@ -8,7 +8,7 @@ const MessageComponent = (props) => {
         <section data-testid="message-wrapper" id="error-section">
             <article>
                 <i className= "material-icons">{icon}</i>
-                <h5>{message}</h5>
+                <h5 role="show-message">{message}</h5>
             </article>
         </section>
     );

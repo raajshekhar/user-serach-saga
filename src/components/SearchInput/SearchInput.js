@@ -27,6 +27,10 @@ const SearchInput = (props) => {
 
     const suggestions = useMemo(() => list, [list])
 
+     /*
+     * onChangeHandler function is filter the data in local store according to the user input
+     * then updates the state [list]
+     */
     const onChangeHandler = useCallback((e) => {
         const { target : { value } } = e;
         setSearch(value);
@@ -34,6 +38,10 @@ const SearchInput = (props) => {
         timer = setTimeout(() => searchFromList(value), 500);
     }, []);
 
+    /*
+     * onClickHandler function is filter the data in local store according to the user select from the autocomplete
+     * then updates the UI List
+     */
     const onClickHandler = useCallback((e) => {
         setSearch('');
         if('No Data Found!' !== e.target.id) onSelectFromList(e)
@@ -56,7 +64,7 @@ const searchFieldProps = {
     name: "usersearch",
     id: "usersearch",
     type: "search",
-    placeholder: "",
+    placeholder: "Search here",
     maxLength: "150",
     value: "",
     readOnly: false,
