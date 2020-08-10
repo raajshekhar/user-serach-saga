@@ -25,12 +25,12 @@ const commonReducer = (state = initialState, action) => {
 
         case UPDATE_USER_DATA:
             let cloneList = {...state}['list'];
-            cloneList[action.data.data.id-1] = {...action.data.data};
-            return { ...state, showUIList: [...cloneList] }
+            cloneList[action.data.id-1] = {...action.data};
+            return { ...state, showUIList: [...cloneList], editUserInfo: null }
 
         case FILTER_FROM_LIST:
             const cloneListForFilter = {...state}['list'];
-            const filterList = !action.data.data ? [] : cloneListForFilter.filter(data => data.title.toLocaleLowerCase().includes(action.data.data.toLocaleLowerCase()))
+            const filterList = !action.data ? [] : cloneListForFilter.filter(data => data.title.toLocaleLowerCase().includes(action.data.toLocaleLowerCase()))
             return { ...state, filterList }
 
         case RESET_FILTER_FROM_LIST:

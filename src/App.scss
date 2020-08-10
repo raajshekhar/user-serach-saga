@@ -3,6 +3,9 @@
   .position-relative {
     position: relative;
   }
+  button {
+    cursor: pointer;
+  }
   .app-auto-complete {
     display: grid;
     place-items: center;

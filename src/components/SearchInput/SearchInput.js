@@ -44,11 +44,8 @@ const SearchInput = (props) => {
         e.target.value && requestUpdateUIList(e.target.value)
     })
 
-    return (
-        <div className="search-input-section">
-            <InputField {...searchFieldProps} onChange={onChangeHandler} onEnter={onEnterHandler} onListselect={onClickHandler} suggestions={suggestions} value={search} />
-        </div>
-    )
+    return <InputField {...searchFieldProps} onChange={onChangeHandler} onEnter={onEnterHandler} onListselect={onClickHandler} suggestions={suggestions} value={search} />
+
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({requestUpdateUIList, setEditFormIndex}, dispatch)
@@ -56,17 +53,18 @@ const mapDispatchToProps = dispatch => bindActionCreators({requestUpdateUIList, 
 export default connect(null, mapDispatchToProps)(SearchInput);
 
 const searchFieldProps = {
-    "name": "usersearch",
-    "id": "usersearch",
-    "type": "search",
-    "placeholder": "",
-    "maxLength": "150",
-    "value": "",
-    "readOnly": false,
-    "colLength": "col-md-6 col-sm-12 col-xs-12",
-    "labelName": "Search",
-    "restrictions": ["numbers", "left-space", "special-characters"],
-    "popOverPlacement": ["bottom", "bottom"],
-    "autoComplete": "off",
-    "labelImp": false
+    name: "usersearch",
+    id: "usersearch",
+    type: "search",
+    placeholder: "",
+    maxLength: "150",
+    value: "",
+    readOnly: false,
+    colLength: "col-md-6 col-sm-12 col-xs-12",
+    labelName: "Search",
+    restrictions: ["numbers", "left-space", "special-characters"],
+    popOverPlacement: ["bottom", "bottom"],
+    autoComplete: "off",
+    labelImp: false,
+    autoFocus: true
 }

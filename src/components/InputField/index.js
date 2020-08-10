@@ -4,44 +4,33 @@ import InputFieldLabel from './types/input-label';
 import { dynamicIcon } from './types/icons';
 import InputFieldPopover from './types/pop-over';
 import SearchResultsComponent from './types/SearchResults';
-import { customOnKeyPress } from '../../assests/Js/commonFunction';
+import { customOnKeyPress } from '../../utilities/commonFunction';
 import './input-field.scss';
 
 const InputField = (props) => {
 
     const { name, type, id, value, className, autoComplete, onChange, onListselect, onKeyPress, onKeyDown, onBlur, onKeyUp, placeholder } = props;
-    const { maxLength, readOnly, defaultChecked, restrictions, icon, rows, cols, ...popoverProps } = props;
+    const { autoFocus, maxLength, readOnly, defaultChecked, restrictions, icon, rows, cols, ...popoverProps } = props;
 
     const { touched, errorMsg, labelClass, labelName, labelImp, showIcon } = popoverProps
 
-    let inputFields = { name, type, id, value, onKeyPress, onBlur, onChange, onKeyDown, className, onKeyUp, placeholder, autoComplete, maxLength, rows, cols, readOnly, defaultChecked };
+    let inputFields = { name, type, id, value, autoFocus, onKeyPress, onBlur, onChange, onKeyDown, className, onKeyUp, placeholder, autoComplete, maxLength, rows, cols, readOnly, defaultChecked };
 
-    const popoverData = { className:  `${errorMsg ? 'error' : 'success'}-message`, color: errorMsg ? 'green' : 'red' , errorMsg };
+    const popoverData = { className:  `${errorMsg ? 'error' : 'success'}-message`, color: errorMsg ? 'red' : 'green' , errorMsg };
     const labelData = { id, labelClass: `${labelClass} ml-4`, labelName, labelImp };
 
-    // const SearchResults = type === 'search' && props.suggestions.length;
     let suggestions = props.suggestions || [];
     if(value) suggestions = ( type === 'search' && suggestions.length ) ? suggestions : [{ title: 'No Data Found!', id: 'No Data Found!'}];
 
     const onEnter = (e) => e.key === 'Enter' && props.onEnter(e);
 
-    useEffect(() => {
-      if(type === 'search') {
-        const searchResults = document.querySelector(`.custom-${type}-field .search-result`);
-        const hasClass = searchResults && searchResults.classList.contains('added-listener');
-        searchResults && !hasClass && searchResults.addEventListener('click', onListselect);
-        searchResults && searchResults.classList.add('added-listener');
-        return () => searchResults && hasClass && searchResults.removeEventListener('click', onListselect);
-      }
-    }, [type, onListselect])
-
     return (
         <div className={`custom-input-validation custom-${type}-field`}>
           {(labelName && type !== 'checkbox') && <InputFieldLabel {...labelData} /> }
           <div className={`position-relative ${icon ? 'has-icon': ''}`}>
-              <input {...inputFields} onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, onEnter)}}  />
+              <input {...inputFields} spellcheck="false"  onChange={onChange} onKeyPress={(e)=>{customOnKeyPress(e, restrictions, onEnter)}}  />
               {(type==='checkbox') && <InputFieldLabel {...labelData} />}
-              { ( type === 'search' ) ? <div className={`search-result ${suggestions.length ? '' : 'd-none'}`}>{suggestions.length ? <SearchResultsComponent list={suggestions} /> : null}</div> : null}
+              { ( type === 'search' ) ? <div onClick={onListselect} className={`search-result ${suggestions.length ? '' : 'd-none'}`}>{suggestions.length ? <SearchResultsComponent list={suggestions} /> : null}</div> : null}
               {showIcon}
               { icon ? dynamicIcon({icon, id}) : null }
           </div>
@@ -84,7 +73,8 @@ InputField.propTypes = {
 InputField.defaultProps = {
   onClick: () => {},
   onListselect: () => {},
-  onEnter: () => {}
+  onEnter: () => {},
+  autoFocus: false
 }
 
 InputField.displayName = 'Input Field';

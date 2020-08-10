@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Formik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { focusErrorElement } from '../../assests/Js/commonFunction';
+import { focusErrorElement } from '../../utilities/commonFunction';
 import EditForm from './Forms/EditForm';
 import { createInitialValuesObject, yupValidationObject } from './Forms/validationSchema';
 import fieldsData from './input-fields.json';
 import './user-edit-form.scss'
 
 const UserSearchEditForm = (props) => {
-
+    const formElement = useRef(null);
     const { onClick } = props;
 
     fieldsData['editForm'].forEach((data) => data.value = props.data[data.name])
@@ -21,14 +21,14 @@ const UserSearchEditForm = (props) => {
     }
 
     return (
-        <section id="user-seach-edit-form">
+        <section id="user-seach-edit-form" ref={formElement}>
             <Formik initialValues={{...initialValues}} validationSchema={validationSchema}>
             {(props) => {
                 const { handleSubmit } = {...props};
                 return (
                     <Form onSubmit={handleSubmit}>
                         <FieldArray name='editForm' component={EditForm} />
-                        <button type="submit" onClick={e => submitHandler(props)} className="send-order-request rounded-0 btn btn-lg">send order request</button>
+                        <button type="submit" onClick={e => submitHandler(props)} className="send-form-request">send request</button>
                     </Form>
                 )
             }}

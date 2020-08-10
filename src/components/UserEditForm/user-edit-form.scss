@@ -1,3 +1,22 @@
-.editForm-article > div {
-    margin-bottom: 10px;
+.editForm-article {
+    &> div {
+        margin-bottom: 10px;
+    }
+
+}
+#user-seach-edit-form {
+    button {
+        padding: 10px 20px;
+        color: #fff;
+        background: #ccc;
+        border-radius: 5px;
+        border: 0px;
+        &:hover{
+            transition: .4s all;
+            color: #000;
+        }
+    }
+    .editForm-article > div {
+        margin-bottom: 10px;
+    }
 }

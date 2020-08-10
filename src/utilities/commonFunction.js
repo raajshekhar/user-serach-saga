@@ -3,7 +3,7 @@ import ENUM from "./enum";
 export const focusErrorElement = (className, setTimeoutRequired) => {
   if (!className) return;
   const scrollBehaviour = {behavior: 'smooth', block: 'center',inline: 'nearest'};
-  const elementField = [...document.getElementsByClassName(className)][0];
+  const elementField = document.querySelector(`.${className}`);
   if (setTimeoutRequired && elementField) {
     const element = setTimeout(function(){
       elementField.scrollIntoView(scrollBehaviour);

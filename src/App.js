@@ -6,25 +6,25 @@ import Modal from './components/Modal/Modal';
 import UserEditForm from './components/UserEditForm'
 import List from './components/List/List';
 import { fetchApiRequest } from './actions/getuserlist';
-import { requestResetEditFormIndex, setEditFormIndex, requestToUpdateUserData, requestFilterFromList, filterListForMainList, resetFilterList , resetFilterListForMainList} from './actions'
+import { resetEditFormIndex, setEditFormIndex, updateUserData, filterFromList, filterListForMainList, resetFilterList , resetFilterListForMainList} from './actions'
 import { getSelectedIndexData, getFilterList, getUIList, getUserError, getLoaderStatus } from './reducers/commonReducer'
 import MessageComponent from './components/MessageComponent/MessageComponent';
 import './App.scss';
 
 function App(props) {
 
-  const { getLoaderStatus, getUserError, selectedIndexData, getFilterList, requestFilterFromList,
-     filterListForMainList, resetFilterList, getUIList, resetFilterListForMainList } = props;
+  const { getLoaderStatus, getUserError, selectedIndexData, getFilterList, filterFromList,
+     filterListForMainList, resetFilterList, getUIList } = props;
   
-  const { fetchApiRequest } = props;
+  const { fetchApiRequest, updateUserData } = props;
 
   useEffect(() => { fetchApiRequest() }, [])
 
   const onClickHandler = useCallback((id) => props.setEditFormIndex({ index: id}), [])
 
-  const closeModal = useCallback(() => props.requestResetEditFormIndex(), [])
+  const closeModal = useCallback(() => props.resetEditFormIndex(), [])
 
-  const updateUserData = useCallback((data) => props.requestToUpdateUserData(data), []);
+  const filterReset = useCallback(() => props.resetFilterListForMainList(), [])
 
   const onSelectedListItemFromSearch = useCallback((e) => {
     const { target: { id }} = e;
@@ -36,13 +36,13 @@ function App(props) {
   return (
     <div className="App">
       <section className="app-auto-complete">
-        <SearchInput list={getFilterList} searchFromList={requestFilterFromList} onSelectFromList={onSelectedListItemFromSearch} />
+        <SearchInput list={getFilterList} searchFromList={filterFromList} onSelectFromList={onSelectedListItemFromSearch} />
         <div className="filter-results-section">
-          <div className="reset-button-section">{ getUIList.length === 1 ? <button type="button" onClick={resetFilterListForMainList}>Reset</button> :  null }</div>
+          <div className="reset-button-section">{ getUIList.length === 1 ? <button type="button" onClick={filterReset}>Reset</button> :  null }</div>
           <div className="list-count">List Count: {getUIList.length} </div>
         </div>        
         <article className="app-list">
-          <List onClick={onClickHandler} list={getUIList}/>
+          <List onSelectedItem={onClickHandler} list={getUIList}/>
         </article>
       </section>
       { selectedIndexData ? <Modal title='Edit Form' onClick={closeModal}><div><UserEditForm data={selectedIndexData} onClick={updateUserData} /></div></Modal> : null}
@@ -64,12 +64,12 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     filterListForMainList,
     fetchApiRequest,
     resetFilterListForMainList,
-    requestResetEditFormIndex,
+    resetEditFormIndex,
     filterListForMainList,
     setEditFormIndex,
     resetFilterList,
-    requestToUpdateUserData,
-    requestFilterFromList
+    updateUserData,
+    filterFromList
   }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../ListItem/ListItem';
 import './list.scss';
 
 const List = (props) => {
 
-    const { onClick, list } = props;
+    const { onSelectedItem, list } = props;
 
-    const openModal = (e) => e.target.tagName === "BUTTON" && onClick(e.target.id);
-
-    useEffect(() => {
-        const listSectionElem = document.querySelector('.list-section');
-        listSectionElem && listSectionElem.addEventListener('click', openModal);
-        return () => listSectionElem && listSectionElem.removeEventListener('click', openModal);
-    }, [])
+    const openModal = (e) => e.target.tagName === "BUTTON" && onSelectedItem(e.target.id);
 
     return (
-        <section className="list-section">
-            { list.map(item => <ListItem key={item.id} item={item} /> )}
+        <section className="list-section" onClick={openModal}>
+            { list.map(item => <ListItem key={item.id} {...item} /> )}
         </section>
     );
 };
 
 List.propTypes = {
-    onClick: PropTypes.func.isRequired
+    onSelectedItem: PropTypes.func.isRequired,
+    list: PropTypes.array.isRequired
+}
+
+List.defaultProps = {
+    list: [],
+    onSelectedItem: () => {}
 }
 
 export default List

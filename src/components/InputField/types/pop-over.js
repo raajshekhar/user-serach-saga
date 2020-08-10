@@ -4,7 +4,7 @@ const inputFieldPopover = ({errorMsg, ...popoverData}) => (<div {...popoverData}
 
 inputFieldPopover.propTypes = {
     errorMsg: PropTypes.string,
-    popoverData: PropTypes.objectOf({
+    popoverData: PropTypes.shape({
         className: PropTypes.string.isRequired,
         color: PropTypes.string
     })
