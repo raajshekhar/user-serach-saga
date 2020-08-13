@@ -7,7 +7,7 @@ import UserEditForm from './components/UserEditForm'
 import List from './components/List/List';
 import { fetchApiRequest } from './actions/getuserlist';
 import { resetEditFormIndex, setEditFormIndex, updateUserData, filterFromList, filterListForMainList, resetFilterList , resetFilterListForMainList} from './actions'
-import { getSelectedIndexData, getFilterList, getUIList, getUserError, getLoaderStatus } from './reducers/commonReducer'
+import { getSelectedIndexData, getFilterList, getUIList, getUserError, getLoaderStatus, getUsersList } from './reducers/commonReducer'
 import MessageComponent from './components/MessageComponent/MessageComponent';
 import './App.scss';
 
@@ -16,7 +16,7 @@ function App(props) {
   const { getLoaderStatus, getUserError, selectedIndexData, getFilterList, filterFromList,
      filterListForMainList, resetFilterList, getUIList } = props;
   
-  const { fetchApiRequest, updateUserData } = props;
+  const { fetchApiRequest, updateUserData, getUsersList } = props;
 
   useEffect(() => { fetchApiRequest() }, [])
 
@@ -38,7 +38,7 @@ function App(props) {
       <section className="app-auto-complete">
         <SearchInput list={getFilterList} searchFromList={filterFromList} onSelectFromList={onSelectedListItemFromSearch} />
         <div className="filter-results-section">
-          <div className="reset-button-section">{ getUIList.length === 1 ? <button type="button" onClick={filterReset}>Reset</button> :  null }</div>
+          <div className="reset-button-section">{ getUIList.length < getUsersList.length ? <button type="button" onClick={filterReset}>Reset</button> :  null }</div>
           <div className="list-count">List Count: {getUIList.length} </div>
         </div>        
         <article className="app-list">
@@ -56,7 +56,8 @@ const mapStateToProps = (state) => {
     getFilterList: getFilterList(state),
     getUIList: getUIList(state),
     getUserError: getUserError(state),
-    getLoaderStatus: getLoaderStatus(state)
+    getLoaderStatus: getLoaderStatus(state),
+    getUsersList: getUsersList(state)
   })
 }
 
